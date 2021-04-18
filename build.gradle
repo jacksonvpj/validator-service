@@ -1,0 +1,50 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version "1.4.31"
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.4.31"
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.quarkus:quarkus-undertow'
+    implementation 'io.quarkus:quarkus-hibernate-orm-panache-kotlin'
+    implementation 'io.quarkus:quarkus-jdbc-h2'
+    implementation 'io.quarkus:quarkus-agroal'
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-mutiny'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
+    implementation 'io.quarkus:quarkus-vertx-web'
+    implementation 'io.quarkus:quarkus-kotlin'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'io.quarkus:quarkus-arc'
+    testImplementation 'io.quarkus:quarkus-junit5'
+
+    implementation("com.networknt:json-schema-validator:1.0.52")
+}
+
+group 'info.jk.validator'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+allOpen {
+    annotation("javax.ws.rs.Path")
+    annotation("javax.enterprise.context.ApplicationScoped")
+    annotation("io.quarkus.test.junit.QuarkusTest")
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+    kotlinOptions.javaParameters = true
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+}
